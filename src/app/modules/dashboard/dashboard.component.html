@@ -2,9 +2,17 @@
 fxLayoutAlign="space-between center"
 fxLayoutGap="20px"
 class="stats-card">
+<mat-card fxFlex="23">
+  <app-widget-card
+    label="Total users "
+    total="18K"
+    percentage="50"
+    
+  ></app-widget-card>
+</mat-card>
  <mat-card fxFlex="23">
     <app-widget-card
-      label="New Users"
+      label="Registed users today"
       total="18K"
       percentage="50"
       
@@ -12,7 +20,7 @@ class="stats-card">
   </mat-card>
   <mat-card fxFlex="23">
     <app-widget-card
-      label="Users"
+      label="Logged in users Ttoday"
       total="18K"
       percentage="50"
       
@@ -21,19 +29,23 @@ class="stats-card">
 
   <mat-card fxFlex="23">
     <app-widget-card
-      label="Users"
+      label="Progression rates"
       total="18K"
       percentage="50"
       
     ></app-widget-card>
   </mat-card>
+</div>
+<br/>
+<mat-divider></mat-divider>
+<br/>
+<div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
+  <div fxFlex="60">
+    <div class="mat-elevation-z8">
 
-  <mat-card fxFlex="23">
-    <app-widget-card
-      label="Users"
-      total="18K"
-      percentage="50"
-      
-    ></app-widget-card>
-  </mat-card>
+    </div>
+  </div>
+  <div fxFlex="40">
+    <!-- <app-widget-pie [data]="pieChart"></app-widget-pie> -->
+  </div>
 </div>

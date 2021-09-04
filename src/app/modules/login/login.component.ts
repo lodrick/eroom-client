@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 //import { Auth } from 'firebase/compat/app';
 import 'firebase/auth';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -24,12 +25,12 @@ export class LoginComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
-    private auth: AngularFireAuth,
+    private authenticationService: AuthenticationService,
     private router: Router) { }
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      username: ['', Validators.required],
+      email: ['', Validators.required],
       password: ['', Validators.required],
     });
 
@@ -39,10 +40,9 @@ export class LoginComponent implements OnInit {
 
   onLogin(){
     const { email, password } = this.form.value;
-    this.auth.signInWithEmailAndPassword(email, password)
-    .then(() => 
-      this.router.navigate(['dashboard'])
-    );
+    
+    if(this.authenticationService.signIn(email,password))
+      this.router.navigate(['dashboard']);
   }
 
   async onSubmit(){
