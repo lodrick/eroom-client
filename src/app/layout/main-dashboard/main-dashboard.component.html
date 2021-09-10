@@ -1,7 +1,8 @@
-<app-header></app-header>
+<app-header (toggleSidebarForMe)="sidebarToggler($event)" FlexLayout="column">
+</app-header>
 
 <mat-drawer-container FlexLayout="row">
-    <mat-drawer mode="side" opened>
+    <mat-drawer mode="side" [opened]="sidebarOpen">
         <app-sidebar></app-sidebar>
     </mat-drawer>
     <mat-drawer-content>

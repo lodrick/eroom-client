@@ -19,9 +19,12 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav'
 import { HttpClientModule } from '@angular/common/http';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
+import { CrudService } from 'src/app/services/crud.service'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { MatPaginatorModule } from '@angular/material/paginator';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
     CommonModule,
     RouterModule,
     FlexLayoutModule,
-    MatToolbarModule,
     MatToolbarModule,
     MatMenuModule,
     MatIconModule,
@@ -48,7 +50,10 @@ import { SharedModule } from 'src/app/shared/shared.module';
     ReactiveFormsModule,
     HttpClientModule,
     SharedModule,
-    MatSidenavModule
-  ]
+    MatSidenavModule,
+    AngularFireDatabaseModule,
+    MatPaginatorModule
+  ],
+  providers: [CrudService]
 })
 export class MainDashboardModule { }
