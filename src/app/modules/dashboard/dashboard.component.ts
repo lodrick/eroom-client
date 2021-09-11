@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
+import { SubSink } from 'subsink';
 import { Advert } from 'src/app/models/advert';
 import { CrudService } from 'src/app/services/crud.service';
 
@@ -10,37 +11,50 @@ import { CrudService } from 'src/app/services/crud.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  adverts = [] as any;
-  dataSource: any;
+  //adverts: any = [];
+  dataSource!: MatTableDataSource<Advert>;
   displayedColumns: string[] = ['index','roomType', 'price', 'title', 'description', 'province', 'city','status'];
   ELEMENT_DATA: Advert[] = [];
+  public unsubscribe$ = new SubSink();
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator | undefined;
+  @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
   constructor(private crudService: CrudService) { }
 
   ngOnInit(): void {
-    this.retrieveAdvers();
+    this.crudService.retieveAdverts().subscribe(
+      list => {
+        let array = list.map(item => {
+          return {
+            ...item.payload.doc.data()
+          };
+        });
+        this.dataSource = new MatTableDataSource(array);
+      }
+    );
   }
 
-  retrieveAdvers(){
-    this.crudService.retieveAdverts().subscribe(response => {
-      let index = 0;
-      return response.map(advert => {
-        index = ++index;
-        const data = advert.payload.doc.data();
-        const id = advert.payload.doc.id;
-        const roomType = data.roomType;
-        const price = data.price;
-        const title = data.title;
-        const description = data.description;
-        const province = data.province;
-        const city = data.city;
-        console.log(roomType);
-        this.adverts.push({index,roomType, price, title, description, province, city});
-        this.dataSource = new MatTableDataSource<Advert>(this.adverts);
-        this.dataSource.paginator = this.paginator;
-     }) 
-    });
-    console.log(this.adverts);
+  ngOnDestroy(): void {
+    this.unsubscribe$.unsubscribe();
+  }
+
+  /*Status Update: Approve*/
+  updateApproveStatus(index: number, element:any) {
+    const data = this.dataSource.data;
+    data.splice((this.paginator.pageIndex * this.paginator.pageSize) + index, 1);
+    this.crudService.udateAdvertStatus(element.id, 'approved');
+  }
+
+  /*Status Update: Pending*/
+  updatePendingStatus(index: number, element:any) {
+    const data = this.dataSource.data;
+    data.splice((this.paginator.pageIndex * this.paginator.pageSize) + index, 1);
+    this.crudService.udateAdvertStatus(element.id, 'pending');
+  }
+
+  /*Status Update: Decline*/
+  updateDeclineStatus(index: number, element:any) {
+    const data = this.dataSource.data;
+    data.splice((this.paginator.pageIndex * this.paginator.pageSize) + index, 1);
+    this.crudService.udateAdvertStatus(element.id, 'decline');
   }
 }

@@ -19,8 +19,7 @@ export class CrudService {
   // }
 
   retieveAdverts(){
-    return this.angularFirestore
-      .collection<Advert>("adverts").snapshotChanges();
+    return this.angularFirestore.collection<Advert>("adverts").snapshotChanges();
   }
 
   createAdvert(advert: Advert) {
@@ -39,12 +38,15 @@ export class CrudService {
   //     .delete();
   // }
 
-  // updateAdvert(advert: Advert, adId: string){
-  //   return this.angularFirestore
-  //     .collection("adverts")
-  //     .doc(adId)
-  //     .update({
+  updateAdvert(advert: Advert, adId: string){
+    return this.angularFirestore
+      .collection("adverts")
+      .doc(adId)
+      .update({
         
-  //     })
-  // }
+      })
+  }
+  udateAdvertStatus(adId: string, status: string){
+    return this.angularFirestore.collection("adverts").doc(adId).update({'status': status});
+  }
 }

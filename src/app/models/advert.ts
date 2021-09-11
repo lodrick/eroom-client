@@ -1,5 +1,5 @@
 export interface Advert {
-    adId: string;
+    id: string;
     roomType: string;
     price: number;
     title: string;
