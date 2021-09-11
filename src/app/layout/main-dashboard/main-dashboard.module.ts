@@ -25,6 +25,8 @@ import { CrudService } from 'src/app/services/crud.service'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
+import { MatFormFieldModule} from '@angular/material/form-field';
 
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatDividerModule,
     MatProgressSpinnerModule,
     MatInputModule,
+    MatFormFieldModule,
     MatCardModule,
     MatSlideToggleModule,
     MatSelectModule,
@@ -52,7 +55,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     SharedModule,
     MatSidenavModule,
     AngularFireDatabaseModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSortModule
   ],
   providers: [CrudService]
 })

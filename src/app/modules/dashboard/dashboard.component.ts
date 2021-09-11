@@ -4,6 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { SubSink } from 'subsink';
 import { Advert } from 'src/app/models/advert';
 import { CrudService } from 'src/app/services/crud.service';
+import { MatSort } from '@angular/material/sort';
 
 @Component({
   selector: 'app-dashboard',
@@ -16,8 +17,10 @@ export class DashboardComponent implements OnInit {
   displayedColumns: string[] = ['index','roomType', 'price', 'title', 'description', 'province', 'city','status'];
   ELEMENT_DATA: Advert[] = [];
   public unsubscribe$ = new SubSink();
+  searchKey!: string;
 
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
   constructor(private crudService: CrudService) { }
 
   ngOnInit(): void {
@@ -29,12 +32,23 @@ export class DashboardComponent implements OnInit {
           };
         });
         this.dataSource = new MatTableDataSource(array);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       }
     );
   }
 
   ngOnDestroy(): void {
     this.unsubscribe$.unsubscribe();
+  }
+
+  onSearchClear() {
+    this.searchKey="";
+    this.applyFilter();
+  }
+
+  applyFilter() {
+    this.dataSource.filter = this.searchKey.trim().toLowerCase();
   }
 
   /*Status Update: Approve*/
