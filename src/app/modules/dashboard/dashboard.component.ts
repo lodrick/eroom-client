@@ -14,7 +14,7 @@ import { MatSort } from '@angular/material/sort';
 export class DashboardComponent implements OnInit {
   //adverts: any = [];
   dataSource!: MatTableDataSource<Advert>;
-  displayedColumns: string[] = ['index','roomType', 'price', 'title', 'description', 'province', 'city','status'];
+  displayedColumns: string[] = ['index','roomType', 'price', 'title', 'description', 'city','status','action'];
   ELEMENT_DATA: Advert[] = [];
   public unsubscribe$ = new SubSink();
   searchKey!: string;
