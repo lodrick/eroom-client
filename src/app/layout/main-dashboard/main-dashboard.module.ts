@@ -27,6 +27,8 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule} from '@angular/material/form-field';
+import { DataService } from 'src/app/services/data.service';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 @NgModule({
   declarations: [
@@ -54,10 +56,11 @@ import { MatFormFieldModule} from '@angular/material/form-field';
     HttpClientModule,
     SharedModule,
     MatSidenavModule,
-    AngularFireDatabaseModule,
+    AngularFireAuthModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    AngularFireDatabaseModule,
   ],
-  providers: [CrudService]
+  providers: [CrudService, DataService,]
 })
 export class MainDashboardModule { }

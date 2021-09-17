@@ -9,5 +9,7 @@ export interface User {
     userType: string;
     imageUrl: string;
     lastMessageTime: string;
+    createdAt: string;
+    updatedAt: string;
     token: string;
 }

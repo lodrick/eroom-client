@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Advert } from '../models/advert';
+import { User } from '../models/user';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,9 @@ export class CrudService {
   //     .valueChanges();
   // }
 
-  retieveAdverts(){
+  //=================Advert CRUD=====================
+
+  retieveAdverts() {
     return this.angularFirestore.collection<Advert>("adverts").snapshotChanges();
   }
 
@@ -38,7 +41,7 @@ export class CrudService {
   //     .delete();
   // }
 
-  updateAdvert(advert: Advert, adId: string){
+  updateAdvert(advert: Advert, adId: string) {
     return this.angularFirestore
       .collection("adverts")
       .doc(adId)
@@ -46,7 +49,18 @@ export class CrudService {
         
       })
   }
-  udateAdvertStatus(adId: string, status: string){
+  udateAdvertStatus(adId: string, status: string) {
     return this.angularFirestore.collection("adverts").doc(adId).update({'status': status});
+  }
+
+  //====================Users CRUD=====================
+
+  retrieveUsers() {
+    return this.angularFirestore.collection<User>("users").snapshotChanges();
+  }
+
+  retrieveUsersByDate(date: Date) {
+    date.getDate();
+    return this.angularFirestore.collection<User>("users", ref => ref.where("createAt", "==", date)).snapshotChanges();
   }
 }

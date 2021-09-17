@@ -11,7 +11,7 @@ class="stats-card">
 <mat-card fxFlex="23">
   <app-widget-card
     label="Total users "
-    total="28K"
+    total="{{totalUsers}}"
     percentage="50"
     
   ></app-widget-card>
@@ -19,14 +19,14 @@ class="stats-card">
  <mat-card fxFlex="23">
     <app-widget-card
       label="Registed users today"
-      total="200K"
+      total="{{registeredUsersToday}}"
       percentage="50"
       
     ></app-widget-card>
   </mat-card>
   <mat-card fxFlex="23">
     <app-widget-card
-      label="Logged in users today"
+      label="Active users"
       total="480K"
       percentage="50"
       

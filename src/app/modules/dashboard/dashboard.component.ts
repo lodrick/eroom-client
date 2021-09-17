@@ -5,6 +5,7 @@ import { SubSink } from 'subsink';
 import { Advert } from 'src/app/models/advert';
 import { CrudService } from 'src/app/services/crud.service';
 import { MatSort } from '@angular/material/sort';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +13,8 @@ import { MatSort } from '@angular/material/sort';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  //adverts: any = [];
+  totalUsers!: string;
+  registeredUsersToday!: string;
   dataSource!: MatTableDataSource<Advert>;
   displayedColumns: string[] = ['index','roomType', 'price', 'title', 'description', 'city','status','action'];
   ELEMENT_DATA: Advert[] = [];
@@ -21,9 +23,21 @@ export class DashboardComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
-  constructor(private crudService: CrudService) { }
+  constructor(
+    private crudService: CrudService, 
+    private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
+    this.retrieveAdverts();
+    this.retrieveUsers();
+    this.retrieveUsersByDate();
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.unsubscribe();
+  }
+
+  retrieveAdverts() {
     this.crudService.retieveAdverts().subscribe(
       list => {
         let array = list.map(item => {
@@ -38,8 +52,32 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  ngOnDestroy(): void {
-    this.unsubscribe$.unsubscribe();
+  retrieveUsers() {
+    this.crudService.retrieveUsers().subscribe(
+      list => {
+        let array = list.map(item => {
+          return {
+            ...item.payload.doc.data()
+          };
+        });
+        this.totalUsers = array.length+'K';
+      }
+    );
+  }
+
+  retrieveUsersByDate() {
+    let nu;
+    this.crudService.retrieveUsersByDate(new Date()).subscribe(
+      list => {
+        let array = list.map(item => {
+          return {
+            ...item.payload.doc.data()
+          }
+        });
+        nu = array.length? array.length : 0
+        this.registeredUsersToday =  nu + 'K';
+      }
+    );
   }
 
   onSearchClear() {
