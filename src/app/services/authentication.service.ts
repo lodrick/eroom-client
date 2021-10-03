@@ -11,6 +11,7 @@ export class AuthenticationService {
 
   constructor(private angularFireAuth: AngularFireAuth) {
     this.userData = angularFireAuth.authState;
+    //angularFireAuth.user.subscribe
   }
 
   /* Sign Up */

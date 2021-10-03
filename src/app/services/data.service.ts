@@ -15,7 +15,7 @@ export class DataService {
       name: 'Registerd',
       data: [106, 107, 111, 133, 221, 767, 1766]
   }, {
-      name: 'Loggedin',
+      name: 'Active users',
       data: [163, 203, 276, 408, 547, 729, 628]
   }, {
       name: 'Progression',
