@@ -1,6 +1,6 @@
 mat-card {
   max-width: 450px;
-  margin: 2em auto;
+  margin: 3em auto;
   text-align: center;
   justify-content: center;
 }
@@ -9,14 +9,15 @@ mat-form-field {
   display: block;
 }
   
-mat-card {
-  margin-top: 2em;
-  
-}
 mat-card-content form a {
   text-decoration: none;
 }
   
 button {
   margin: 0.1em;
+}
+
+mat-card-content form img {
+  width: 13em;
+  box-shadow: 0 0 0 rgba(0, 0, 0, 0.12), 0 0.1px 0.1px rgba(0, 0, 0, 0.24);
 }
