@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MainDashboardComponent } from './main-dashboard.component';
 import { DashboardComponent } from 'src/app/modules/dashboard/dashboard.component';
+import { AdminUsersComponent } from 'src/app/modules/admin-users/admin-users.component';
 
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -34,6 +35,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
   declarations: [
     MainDashboardComponent,
     DashboardComponent,
+    AdminUsersComponent
   ],
   imports: [
     CommonModule,

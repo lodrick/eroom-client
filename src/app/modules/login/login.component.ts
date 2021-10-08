@@ -38,11 +38,19 @@ export class LoginComponent implements OnInit {
 
   }
 
+  get f() {
+    return this.form.controls;
+  }
+
   onLogin(){
-    const { email, password } = this.form.value;
-    
-    if(this.authenticationService.signIn(email,password))
+    //const { email, password } = this.form.value;
+    this.authenticationService.signIn(this.f.email.value, this.f.password.value);
+
+    console.log('isSignedIn ' + this.authenticationService.isSignedIn);
+
+    if(this.authenticationService.isSignedIn) {
       this.router.navigate(['dashboard']);
+    }
   }
 
   async onSubmit(){

@@ -10,15 +10,6 @@ export class CrudService {
 
   constructor(private angularFirestore: AngularFirestore) { }
 
-
-
-  // getAdvert(id: string){
-  //   return this.angularFirestore
-  //     .collection("adverts")
-  //     .doc(id)
-  //     .valueChanges();
-  // }
-
   //=================Advert CRUD=====================
 
   retieveAdverts() {

@@ -3,6 +3,7 @@
       <form [formGroup]="form" (ngSubmit)="onLogin()">
         <img src="assets/eroom_logo.jpeg" class="img-responsive" alt="" >
         <h2>Log In</h2>
+        <p class="cridential-txt">Enter your user name and password.</p>
         <mat-error *ngIf="loginInvalid">
           The username and password were not recognised
         </mat-error>
