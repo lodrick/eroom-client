@@ -8,11 +8,6 @@ import { Observable } from 'rxjs';
 export class AuthenticationService {
   userData: Observable<any>;
   isSignedIn?: boolean = false;
-
-  idAdminUser?: string;
-  displayName?: string = '';
-  email?: string;
-  photoURL?: string;
   
   constructor(private angularFireAuth: AngularFireAuth) {
     this.userData = angularFireAuth.authState;
@@ -36,14 +31,15 @@ export class AuthenticationService {
 
   /* Sign in*/
   signIn(email: string, password: string) {
+
+    
     
     this.angularFireAuth.signInWithEmailAndPassword(email, password)
     .then(res => {
-
-      this.idAdminUser = res.user?.uid!;
-      this.displayName = res.user?.displayName!;
-      this.email = res.user?.email!;
-      this.photoURL = res.user?.photoURL!;
+      localStorage.setItem('uid',JSON.stringify(res.user?.uid));
+      localStorage.setItem('authEmail', JSON.stringify(res.user?.email));
+      localStorage.setItem('displayName', JSON.stringify(res.user?.displayName));
+      localStorage.setItem('photoURL', JSON.stringify(res.user?.photoURL));
       
       console.log('Successfully signed in!', res);
       this.isSignedIn = true;
