@@ -6,8 +6,16 @@ import { Advert } from 'src/app/models/advert';
 import { CrudService } from 'src/app/services/crud.service';
 import { MatSort } from '@angular/material/sort';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { sortedChanges } from '@angular/fire/compat/firestore';
 
+export enum ToggleEnum {
+  APPROVED,
+  PENDING,
+  DECLINED
+}
+
+const APPROVED: string = "toggleEnum.APPROVED";
+const PENDING: string = "toggleEnum.PENDING";
+const DECLINED: string = "toggleEnum.DECLINED";
 
 @Component({
   selector: 'app-dashboard',
@@ -24,23 +32,31 @@ export class DashboardComponent implements OnInit {
   searchKey!: string;
   img!: string; 
 
+  toggleEnum = ToggleEnum;
+  selectedState = this.toggleEnum.DECLINED
+
+  
+
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private crudService: CrudService, 
     private authenticationService: AuthenticationService) { }
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
     this.retrieveAdverts();
     this.retrieveUsers();
     this.retrieveUsersByDate();
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy(): void 
+  {
     this.unsubscribe$.unsubscribe();
   }
 
-  retrieveAdverts() {
+  retrieveAdverts() 
+  {
     this.crudService.retieveAdverts().subscribe(
       list => {
         let array = list.map(item => {
@@ -48,9 +64,9 @@ export class DashboardComponent implements OnInit {
             ...item.payload.doc.data()
           };
         });
-        array.forEach((e) =>{
-          console.log(e.photosUrl[0]);
-        });
+        // array.forEach((e) =>{
+        //   console.log(e.photosUrl[0]);
+        // });
         this.dataSource = new MatTableDataSource(array.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -58,7 +74,8 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  retrieveUsers() {
+  retrieveUsers() 
+  {
     this.crudService.retrieveUsers().subscribe(
       list => {
         let array = list.map(item => {
@@ -71,7 +88,8 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  retrieveUsersByDate() {
+  retrieveUsersByDate() 
+  {
     let nu;
     this.crudService.retrieveUsersByDate(new Date()).subscribe(
       list => {
@@ -86,33 +104,55 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  onSearchClear() {
+  onSearchClear() 
+  {
     this.searchKey="";
     this.applyFilter();
   }
 
-  applyFilter() {
+  applyFilter() 
+  {
     this.dataSource.filter = this.searchKey.trim().toLowerCase();
   }
 
+  onToggleStatusChange($event: any, index: number, element:any) 
+  {
+    if($event.value == APPROVED) 
+    {
+      this.updateApproveStatus(index, element)
+    }
+    else if($event.value == PENDING) { 
+      this.updatePendingStatus(index, element)
+    }
+    else if($event.value == DECLINED)
+    {
+      this.updateDeclineStatus(index, element);
+    }
+    this.selectedState = $event.value;
+  }
+
   /*Status Update: Approve*/
-  updateApproveStatus(index: number, element:any) {
+  updateApproveStatus(index: number, element:any) 
+  {
     const data = this.dataSource.data;
     data.splice((this.paginator.pageIndex * this.paginator.pageSize) + index, 1);
     this.crudService.udateAdvertStatus(element.id, 'approved');
   }
 
   /*Status Update: Pending*/
-  updatePendingStatus(index: number, element:any) {
+  updatePendingStatus(index: number, element:any)
+  {
     const data = this.dataSource.data;
     data.splice((this.paginator.pageIndex * this.paginator.pageSize) + index, 1);
     this.crudService.udateAdvertStatus(element.id, 'pending');
   }
 
   /*Status Update: Decline*/
-  updateDeclineStatus(index: number, element:any) {
+  updateDeclineStatus(index: number, element:any)
+  {
     const data = this.dataSource.data;
     data.splice((this.paginator.pageIndex * this.paginator.pageSize) + index, 1);
-    this.crudService.udateAdvertStatus(element.id, 'decline');
+    this.crudService.udateAdvertStatus(element.id, 'declined');
   }
 }
+

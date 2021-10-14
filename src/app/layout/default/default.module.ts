@@ -20,10 +20,12 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from 'src/app/modules/login/login.component';
 import { SignupComponent } from 'src/app/modules/signup/signup.component';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 
 @NgModule({
@@ -48,6 +50,8 @@ import { environment } from 'src/environments/environment.prod';
     MatCardModule,
     MatSlideToggleModule,
     MatSelectModule,
+    MatButtonToggleModule,
+    
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,

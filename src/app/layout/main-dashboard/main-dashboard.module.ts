@@ -18,7 +18,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
-import { MatSidenavModule } from '@angular/material/sidenav'
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
@@ -58,6 +60,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     HttpClientModule,
     SharedModule,
     MatSidenavModule,
+    MatButtonToggleModule,
     AngularFireAuthModule,
     MatPaginatorModule,
     MatSortModule,

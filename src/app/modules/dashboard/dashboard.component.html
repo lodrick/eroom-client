@@ -114,9 +114,11 @@ class="stats-card">
         <ng-container matColumnDef="action">
           <th mat-header-cell *matHeaderCellDef>Status Update</th>
           <td mat-cell *matCellDef="let element; let i = index">
-            <button mat-button class="bg-success" (click)=updateApproveStatus(i,element)><mat-icon>check</mat-icon></button>
-            <button mat-button class="bg-warning" (click)=updatePendingStatus(i,element)><mat-icon>hourglass_full</mat-icon></button>
-            <button mat-button class="bg-danger" (click)=updateDeclineStatus(i,element)><mat-icon>close</mat-icon></button>
+            <mat-button-toggle-group [value]="selectedState" (change)="onToggleStatusChange($event, i, element)">
+              <mat-button-toggle class="bg-success" value="toggleEnum.APPROVED"><mat-icon>check</mat-icon></mat-button-toggle>
+              <mat-button-toggle class="bg-warning" value="toggleEnum.PENDING"><mat-icon>hourglass_full</mat-icon></mat-button-toggle>
+              <mat-button-toggle class="bg-danger" value="toggleEnum.DECLINED"><mat-icon>close</mat-icon></mat-button-toggle>
+            </mat-button-toggle-group>
           </td>
         </ng-container>
 
