@@ -9,7 +9,7 @@ export interface Advert {
     suburb: string;
     idUser: string;
     createdAt: string;
-    updatedAt: string;
+    updatedAt: any;
     status: string;
-    imageUrls: string;
+    photosUrl: string;
 }

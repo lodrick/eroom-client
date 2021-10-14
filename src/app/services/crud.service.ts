@@ -13,7 +13,7 @@ export class CrudService {
   //=================Advert CRUD=====================
 
   retieveAdverts() {
-    return this.angularFirestore.collection<Advert>("adverts").snapshotChanges();
+    return this.angularFirestore.collection<Advert>("adverts", ref => ref.orderBy('status')).snapshotChanges();
   }
 
   createAdvert(advert: Advert) {

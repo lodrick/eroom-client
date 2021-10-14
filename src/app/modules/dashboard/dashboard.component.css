@@ -1,6 +1,13 @@
 .stats-cards .mat-card{
     overflow: hidden;
 }
+
+mat-card.mat-card {
+    box-shadow:
+       inset 0 -2em 2em rgba(0,0,0,0.1),
+             0 0  0 2px rgb(255,255,255),
+             0.3em 0.3em 1em rgba(0,0,0,0.3);
+}
   
 table {
     width: 100%;
@@ -10,10 +17,24 @@ button{
     margin-left: 3px;
 }
 
-/*met-table*/
+
 mat-footer-row mat-footer-cell {
     justify-content: center;
     font-style: italic;
+}
+
+th.mat-header-cell {
+    /*margin: 300px;*/
+    padding-right: 15px;
+    font-size: 50x;
+    font-weight: bold;
+}
+
+
+td.mat-cell {
+    /*padding: 300px;*/
+    padding-right: 15px;
+    
 }
 
 /*filter controls*/

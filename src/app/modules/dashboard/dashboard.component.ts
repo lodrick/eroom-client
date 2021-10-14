@@ -6,6 +6,8 @@ import { Advert } from 'src/app/models/advert';
 import { CrudService } from 'src/app/services/crud.service';
 import { MatSort } from '@angular/material/sort';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { sortedChanges } from '@angular/fire/compat/firestore';
+
 
 @Component({
   selector: 'app-dashboard',
@@ -20,6 +22,7 @@ export class DashboardComponent implements OnInit {
   ELEMENT_DATA: Advert[] = [];
   public unsubscribe$ = new SubSink();
   searchKey!: string;
+  img!: string; 
 
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
@@ -45,7 +48,10 @@ export class DashboardComponent implements OnInit {
             ...item.payload.doc.data()
           };
         });
-        this.dataSource = new MatTableDataSource(array);
+        array.forEach((e) =>{
+          console.log(e.photosUrl[0]);
+        });
+        this.dataSource = new MatTableDataSource(array.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
