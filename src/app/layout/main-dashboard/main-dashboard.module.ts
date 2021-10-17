@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MainDashboardComponent } from './main-dashboard.component';
 import { DashboardComponent } from 'src/app/modules/dashboard/dashboard.component';
 import { AdminUsersComponent } from 'src/app/modules/admin-users/admin-users.component';
+import { CreateUserComponent } from 'src/app/modules/create-user/create-user.component';
+
 
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
@@ -20,6 +22,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
@@ -37,7 +40,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
   declarations: [
     MainDashboardComponent,
     DashboardComponent,
-    AdminUsersComponent
+    AdminUsersComponent,
+    CreateUserComponent
   ],
   imports: [
     CommonModule,
@@ -64,8 +68,10 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     AngularFireAuthModule,
     MatPaginatorModule,
     MatSortModule,
+    MatDialogModule,
     AngularFireDatabaseModule,
   ],
   providers: [CrudService, DataService,]
+  
 })
 export class MainDashboardModule { }

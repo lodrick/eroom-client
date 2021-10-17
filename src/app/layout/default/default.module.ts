@@ -25,7 +25,7 @@ import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from 'src/app/modules/login/login.component';
 import { SignupComponent } from 'src/app/modules/signup/signup.component';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 
 
 @NgModule({
