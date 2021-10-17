@@ -52,7 +52,7 @@ export class CrudService {
   }
 
   retrieveUsersByUserType() {
-    return this.angularFirestore.collection<User>("User", ref => ref.where("userType", "==", "admin")).snapshotChanges();
+    return this.angularFirestore.collection<User>("users", ref => ref.where("userType", "==", "user")).snapshotChanges();
   }
 
   retrieveUsersByDate(date: Date) {

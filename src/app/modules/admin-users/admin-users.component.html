@@ -1,5 +1,5 @@
 <div class="search-div">
-    <button mat-raised-button (click)="onCreate()">
+    <button mat-raised-button class="bg-success" (click)="onCreate()">
         <mat-icon>add</mat-icon>Create
     </button>
     <mat-form-field class="search-form-field" floatLabel="never">
@@ -46,6 +46,16 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>User Type</th>
                     <td mat-cell *matCellDef="let element">{{ element.userType }}</td>
                 </ng-container>
+
+                <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef>Action</th>
+                    <td mat-cell *matCellDef="let element; let i = index">
+                      <mat-button-toggle-group [value]="selectedState" (change)="onToggleStatusChange($event, i, element)">
+                        <mat-button-toggle class="bg-secondary" value="toggleEnum.EDIT"><mat-icon class="text-light">edit</mat-icon></mat-button-toggle>
+                        <mat-button-toggle class="bg-danger" value="toggleEnum.DELETE"><mat-icon class="text-muted">delete</mat-icon></mat-button-toggle>
+                      </mat-button-toggle-group>
+                    </td>
+                  </ng-container>
 
                 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                 <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>

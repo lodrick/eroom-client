@@ -1,12 +1,12 @@
 <mat-toolbar>
     <!--<span>{{service.form.controls['$key'].value?"Modify Employee":"New Employee"}}</span>-->
-    <span>Create admin user</span>
+    <span>Edit admin user</span>
     <span class="example-fill-remaining-space"></span>
     <button class="btn-dialog-close float-right" mat-stroked-button (click)="onClose()" tabIndex="-1"><mat-icon>clear</mat-icon></button>
 </mat-toolbar>
 
 <form [formGroup]="form" class="mormal-form" (ngSubmit)="onSubmit()">
-    <mat-error *ngIf="addAdminInvalid">
+    <mat-error *ngIf="editAdminInvalid">
         Invalid User Details
     </mat-error>
     <mat-grid-list cols="2" rowHeight="250px">

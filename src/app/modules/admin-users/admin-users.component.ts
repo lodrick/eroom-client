@@ -7,6 +7,17 @@ import { User } from 'src/app/models/user';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { CrudService } from 'src/app/services/crud.service';
 import { CreateUserComponent } from '../create-user/create-user.component';
+import { EditUserComponent } from '../edit-user/edit-user.component';
+
+export enum ToggleEnum {
+  EDIT,
+  DELETE,
+  
+}
+
+const EDIT: string = "toggleEnum.EDIT";
+const DELETE: string = "toggleEnum.DELETE";
+
 
 @Component({
   selector: 'app-admin-users',
@@ -16,9 +27,12 @@ import { CreateUserComponent } from '../create-user/create-user.component';
 export class AdminUsersComponent implements OnInit {
 
   dataSource!: MatTableDataSource<User>
-  displayedColumns: string[] = ['index','name', 'surname', 'email', 'userType']
+  displayedColumns: string[] = ['index','name', 'surname', 'email', 'userType', 'action']
   ELEMENT_DATA: User[] = [];
   searchKey!: string;
+
+  toggleEnum = ToggleEnum;
+  selectedState = null;
 
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort
@@ -35,7 +49,7 @@ export class AdminUsersComponent implements OnInit {
 
   retrieveUsers()
   {
-    this.crudService.retrieveUsers().subscribe(
+    this.crudService.retrieveUsersByUserType().subscribe(
       list => {
         let array = list.map(item => {
           return {
@@ -69,4 +83,23 @@ export class AdminUsersComponent implements OnInit {
     this.dialog.open(CreateUserComponent,dialogConfig);
   }
 
+  onEdit() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = true;
+    dialogConfig.width = "60%";
+    this.dialog.open(EditUserComponent, dialogConfig);
+  }
+
+  onToggleStatusChange($event: any, index: number, element: any) 
+  {
+    if($event.value == EDIT) {
+      console.log('EDIT')
+      this.onEdit();
+    }
+    else if($event.value == DELETE) { 
+      console.log('DELETE')
+    }
+    this.selectedState = $event.value;
+  }
 }

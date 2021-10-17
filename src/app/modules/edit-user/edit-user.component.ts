@@ -3,14 +3,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { CreateUserComponent } from '../create-user/create-user.component';
 
 @Component({
-  selector: 'app-create-user',
-  templateUrl: './create-user.component.html',
-  styleUrls: ['./create-user.component.css']
+  selector: 'app-edit-user',
+  templateUrl: './edit-user.component.html',
+  styleUrls: ['./edit-user.component.css']
 })
-export class CreateUserComponent implements OnInit {
-
+export class EditUserComponent implements OnInit {
+  
   form: FormGroup = this.formBuilder.group({
     name: ['', Validators.required],
     surname: ['', Validators.required],
@@ -20,10 +21,11 @@ export class CreateUserComponent implements OnInit {
     re_password: ['', Validators.required],
   });
 
-  addAdminInvalid: boolean = false;
+  editAdminInvalid: boolean = false;
   invalid: boolean = false;
 
-  constructor(public dialogRef: MatDialogRef<CreateUserComponent>,
+  constructor(
+    public dialogRef: MatDialogRef<CreateUserComponent>,
     private formBuilder: FormBuilder,
     private route: ActivatedRoute,
     private authenticationService: AuthenticationService,
@@ -32,12 +34,12 @@ export class CreateUserComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onClose() {
-    this.dialogRef.close();
-  }
-
   onSubmit() {
 
+  }
+
+  onClose() {
+    this.dialogRef.close();
   }
 
   onClear() {

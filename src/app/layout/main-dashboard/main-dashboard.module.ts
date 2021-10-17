@@ -4,6 +4,7 @@ import { MainDashboardComponent } from './main-dashboard.component';
 import { DashboardComponent } from 'src/app/modules/dashboard/dashboard.component';
 import { AdminUsersComponent } from 'src/app/modules/admin-users/admin-users.component';
 import { CreateUserComponent } from 'src/app/modules/create-user/create-user.component';
+import { EditUserComponent } from 'src/app/modules/edit-user/edit-user.component';
 
 
 import { RouterModule } from '@angular/router';
@@ -23,6 +24,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { HttpClientModule } from '@angular/common/http';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
@@ -41,7 +43,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     MainDashboardComponent,
     DashboardComponent,
     AdminUsersComponent,
-    CreateUserComponent
+    CreateUserComponent,
+    EditUserComponent
   ],
   imports: [
     CommonModule,
@@ -59,6 +62,7 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     MatCardModule,
     MatSlideToggleModule,
     MatSelectModule,
+    MatGridListModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
