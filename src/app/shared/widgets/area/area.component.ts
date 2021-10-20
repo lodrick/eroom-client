@@ -19,7 +19,7 @@ export class AreaComponent implements OnInit {
             type: 'area'
         },
         title: {
-            text: 'App registrations, logins and progressions of users per day, week and monthly'
+            text: 'Area graph'
         },
         subtitle: {
             text: 'Source: reacode.co.za'

@@ -1,6 +1,18 @@
-<div>
-  <app-widget-area></app-widget-area>
-</div>
+<h2 class="graphs-header">App registrations, logins and progressions of users per day, week and monthly</h2>
+
+<mat-grid-list cols="2" rowHeight="31em">
+  <mat-grid-tile>
+    <div>
+      <app-widget-pie [data]="pieChart" ></app-widget-pie>
+    </div>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <div>
+      <app-widget-area></app-widget-area>
+    </div>
+  </mat-grid-tile>
+</mat-grid-list>
+
 <br/>
 <mat-divider></mat-divider>
 <br/>
@@ -47,17 +59,17 @@ class="stats-card">
 <br/>
 
 
+<div class="search-div">
+  <mat-form-field class="search-form-field" floatLabel="never" appearance="outline">
+    <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()"/>
+    <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>
 <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="20px">
   <div fxFlex="100">
     
-    <div class="search-div">
-      <mat-form-field class="search-form-field" floatLabel="never">
-        <input matInput [(ngModel)]="searchKey" placeholder="Search" autocomplete="off" (keyup)="applyFilter()"/>
-        <button mat-button matSuffix mat-icon-button aria-label="Clear" *ngIf="searchKey" (click)="onSearchClear()">
-          <mat-icon>close</mat-icon>
-        </button>
-      </mat-form-field>
-    </div>
     
     <div class="mat-elevation-z8">
       <table mat-table [dataSource]="dataSource" matSort>

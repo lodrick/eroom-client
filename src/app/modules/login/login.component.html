@@ -1,4 +1,56 @@
-<mat-card>
+
+<mat-grid-list cols="2">
+  <mat-grid-tile class="mat-grid-tile-1">
+    <!--<img src="assets/eroom_logo.jpeg" class="img-responsive" alt=""/>-->
+
+  </mat-grid-tile>
+  <mat-grid-tile class="mat-grid-tile-2">
+    <mat-card>
+      <mat-card-content>
+        <form [formGroup]="form" (ngSubmit)="onLogin()">
+          <img src="assets/eroom_logo.png" class="img-responsive" alt="" />
+          <h2>Welcome</h2>
+          <p class="cridential-txt">Log in using your <strong>exiting email and password</strong></p>
+          <mat-error *ngIf="loginInvalid">
+            The username and password were not recognised
+          </mat-error>
+    
+          <mat-form-field class="full-width-input">
+            <input
+              matInput
+              placeholder="Email"
+              formControlName="email"
+              required
+            />
+            <mat-error>
+              Please provide a valid email address
+            </mat-error>
+          </mat-form-field>
+    
+          <mat-form-field class="full-width-input">
+            <input
+              matInput
+              type="password"
+              placeholder="Password"
+              formControlName="password"
+              required
+            />
+            <mat-error>
+              Please provide a valid password
+            </mat-error>
+          </mat-form-field>
+          <button mat-raised-button class="bg-info">Login</button>
+    
+        </form>
+      </mat-card-content>
+    </mat-card>
+  </mat-grid-tile>
+  
+</mat-grid-list>
+
+
+
+<!--<mat-card>
     <mat-card-content>
       <form [formGroup]="form" (ngSubmit)="onLogin()">
         <img src="assets/eroom_logo.jpeg" class="img-responsive" alt="" >
@@ -37,4 +89,4 @@
         <p>Don't have an account? <a routerLink="signup">Sign Up</a></p>
       </form>
     </mat-card-content>
-  </mat-card>
+  </mat-card>-->

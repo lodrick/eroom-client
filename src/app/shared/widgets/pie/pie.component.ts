@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import * as Highcharts from 'highcharts';
+import HC_exporting from 'highcharts/modules/exporting';
 
 @Component({
   selector: 'app-widget-pie',
@@ -22,7 +23,7 @@ export class PieComponent implements OnInit {
         type: 'pie',
       },
       title: {
-        text: 'Eroom Data',
+        text: 'Pie chat graph',
       },
       tooltip: {
         pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>',
@@ -65,7 +66,5 @@ export class PieComponent implements OnInit {
   }
 
 }
-function HC_exporting(Highcharts: typeof import("highcharts")) {
-  throw new Error('Function not implemented.');
-}
+
 

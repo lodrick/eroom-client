@@ -12,7 +12,7 @@ export class DataService {
       name: 'Users',
       data: [502, 635, 809, 947, 1402, 3634, 5268]
   }, {
-      name: 'Registerd',
+      name: 'Registered',
       data: [106, 107, 111, 133, 221, 767, 1766]
   }, {
       name: 'Active users',
@@ -21,5 +21,29 @@ export class DataService {
       name: 'Progression',
       data: [18, 31, 54, 156, 339, 818, 1201]
   }]
+  }
+
+  pieChart() {
+    return [
+      {
+        name: 'Users',
+        y: 61.41,
+        sliced: true,
+        selected: true,
+      },
+      {
+        name: 'Registered',
+        y: 11.84,
+      },
+      {
+        name: 'Active users',
+        y: 10.85,
+      },
+      {
+        name: 'Progression',
+        y: 4.67,
+      },
+      
+    ];
   }
 }

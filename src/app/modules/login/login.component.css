@@ -1,5 +1,20 @@
-mat-card {
+mat-grid-list mat-grid-tile mat-card {
   max-width: 450px;
+  margin: 3em auto;
+  text-align: center;
+  justify-content: center;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+}
+mat-grid-list mat-grid-tile.mat-grid-tile-1 {
+
+  background-image: linear-gradient(rgba(48, 95, 69, 0.2), rgba(34, 34, 26, 0.5)), url("../../../assets/Customizer-Add-ons.png");
+  background-repeat: no-repeat;
+  background-size: 150% 100%;
+  justify-content: center;
+  /*social-media-business.png*/
+}
+
+mat-grid-list mat-grid-tile.mat-grid-tile-2 {
   margin: 3em auto;
   text-align: center;
   justify-content: center;
@@ -15,14 +30,17 @@ mat-card-content form a {
   
 button {
   margin: 0.1em;
+  color: aliceblue;
+  box-shadow: rgba(0, 0, 0, 0.56) 0px 22px 70px 4px;
+
 }
 
-mat-card-content form img {
-  width: 13em;
+mat-grid-list mat-grid-tile form img {
+  width: 12em;
   box-shadow: 0 0 0 rgba(0, 0, 0, 0.12), 0 0.1px 0.1px rgba(0, 0, 0, 0.24);
 }
 
-mat-card-content form .cridential-txt {
+mat-grid-tile form .cridential-txt {
   font-family: Verdana, Arial, Tahoma, Serif;
   color: darkslategray;
   

@@ -6,6 +6,7 @@ import { Advert } from 'src/app/models/advert';
 import { CrudService } from 'src/app/services/crud.service';
 import { MatSort } from '@angular/material/sort';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { DataService } from 'src/app/services/data.service';
 
 export enum ToggleEnum {
   APPROVED,
@@ -30,7 +31,9 @@ export class DashboardComponent implements OnInit {
   ELEMENT_DATA: Advert[] = [];
   public unsubscribe$ = new SubSink();
   searchKey!: string;
-  img!: string; 
+  img!: string;
+
+  pieChart:any = [];
 
   toggleEnum = ToggleEnum;
   selectedState = this.toggleEnum.DECLINED
@@ -41,10 +44,11 @@ export class DashboardComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private crudService: CrudService, 
-    private authenticationService: AuthenticationService) { }
+    private dataService: DataService) { }
 
   ngOnInit(): void 
   {
+    this.pieChart = this.dataService.pieChart();
     this.retrieveAdverts();
     this.retrieveUsers();
     this.retrieveUsersByDate();

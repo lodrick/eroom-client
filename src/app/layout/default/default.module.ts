@@ -21,6 +21,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatSelectModule } from '@angular/material/select';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatGridListModule } from '@angular/material/grid-list';
 
 import { HttpClientModule } from '@angular/common/http';
 import { LoginComponent } from 'src/app/modules/login/login.component';
@@ -51,6 +52,7 @@ import { environment } from 'src/environments/environment';
     MatSlideToggleModule,
     MatSelectModule,
     MatButtonToggleModule,
+    MatGridListModule,
     
     FormsModule,
     ReactiveFormsModule,
