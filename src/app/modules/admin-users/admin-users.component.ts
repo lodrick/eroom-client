@@ -49,7 +49,7 @@ export class AdminUsersComponent implements OnInit {
 
   retrieveUsers()
   {
-    this.crudService.retrieveUsersByUserType().subscribe(
+    this.crudService.retrieveUsersByUserType('user').subscribe(
       list => {
         let array = list.map(item => {
           return {

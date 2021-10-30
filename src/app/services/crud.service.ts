@@ -51,8 +51,13 @@ export class CrudService {
     return this.angularFirestore.collection<User>("users").snapshotChanges();
   }
 
-  retrieveUsersByUserType() {
-    return this.angularFirestore.collection<User>("users", ref => ref.where("userType", "==", "user")).snapshotChanges();
+  retrieveUsersByUserType(userType: string) {
+    return this.angularFirestore.collection<User>("users", ref => ref.where("userType", "==", userType)).snapshotChanges();
+  }
+
+  retrieveUserByUserId(userId: string) {
+    return this.angularFirestore.collection("users", ref => ref.where('idUser', "==", userId)).valueChanges();
+    
   }
 
   retrieveUsersByDate(date: Date) {

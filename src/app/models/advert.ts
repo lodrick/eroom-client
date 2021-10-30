@@ -7,7 +7,8 @@ export interface Advert {
     province: string;
     city: string;
     suburb: string;
-    idUser: string;
+    userId: string;
+    email: string;
     createdAt: string;
     updatedAt: any;
     status: string;

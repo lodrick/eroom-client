@@ -7,6 +7,7 @@ import { CrudService } from 'src/app/services/crud.service';
 import { MatSort } from '@angular/material/sort';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { DataService } from 'src/app/services/data.service';
+import { User } from 'src/app/models/user';
 
 export enum ToggleEnum {
   APPROVED,
@@ -27,8 +28,9 @@ export class DashboardComponent implements OnInit {
   totalUsers!: string;
   registeredUsersToday!: string;
   dataSource!: MatTableDataSource<Advert>;
-  displayedColumns: string[] = ['index','roomType', 'price', 'title', 'description', 'city','status','action'];
+  displayedColumns: string[] = ['index','roomType','price', 'title', 'description', 'city', 'email', 'status', 'action'];
   ELEMENT_DATA: Advert[] = [];
+  userArray: User[] = [];
   public unsubscribe$ = new SubSink();
   searchKey!: string;
   img!: string;
@@ -49,8 +51,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void 
   {
     this.pieChart = this.dataService.pieChart();
-    this.retrieveAdverts();
     this.retrieveUsers();
+    this.retrieveAdverts();
+    
     this.retrieveUsersByDate();
   }
 
@@ -58,6 +61,7 @@ export class DashboardComponent implements OnInit {
   {
     this.unsubscribe$.unsubscribe();
   }
+
 
   retrieveAdverts() 
   {
@@ -68,15 +72,36 @@ export class DashboardComponent implements OnInit {
             ...item.payload.doc.data()
           };
         });
-        // array.forEach((e) =>{
-        //   console.log(e.photosUrl[0]);
-        // });
+        
         this.dataSource = new MatTableDataSource(array.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
     );
   }
+
+  /*retrieveAdverts() {
+    let user: any;
+    this.crudService.retieveAdverts().subscribe(
+      adverts => {
+        let array = adverts.map(items => {
+          const data = items.payload.doc.data();
+          console.log(data.userId);
+          
+          
+          this.crudService.retrieveUserByUserId(data.userId).subscribe(
+            users => {
+              let sinleUser = users.map(userData =>{
+                user = userData;
+                
+              });
+              return users.map( data2 => Object.assign({}, {...data, data2}));
+            });
+          
+        });
+      }
+    );
+  }*/
 
   retrieveUsers() 
   {
@@ -87,6 +112,7 @@ export class DashboardComponent implements OnInit {
             ...item.payload.doc.data()
           };
         });
+        this.userArray = array;
         this.totalUsers = array.length+'K';
       }
     );
