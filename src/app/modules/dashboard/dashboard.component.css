@@ -70,3 +70,8 @@ h2.graphs-header {
     text-align: center;
     padding: 2em;
 }
+
+.icon-image {
+    color: rgb(88, 165, 139);
+    background-color: darkslategrey;
+}

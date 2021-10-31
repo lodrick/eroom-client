@@ -12,5 +12,6 @@ export interface Advert {
     createdAt: string;
     updatedAt: any;
     status: string;
-    photosUrl: string;
+    photosUrl: any;
 }
+

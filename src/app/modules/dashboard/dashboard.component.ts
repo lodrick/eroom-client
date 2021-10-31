@@ -8,6 +8,8 @@ import { MatSort } from '@angular/material/sort';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { DataService } from 'src/app/services/data.service';
 import { User } from 'src/app/models/user';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { DisplayPostImagesComponent } from '../display-post-images/display-post-images.component';
 
 export enum ToggleEnum {
   APPROVED,
@@ -28,12 +30,14 @@ export class DashboardComponent implements OnInit {
   totalUsers!: string;
   registeredUsersToday!: string;
   dataSource!: MatTableDataSource<Advert>;
-  displayedColumns: string[] = ['index','roomType','price', 'title', 'description', 'city', 'email', 'status', 'action'];
+  displayedColumns: string[] = ['index','imageUrl','roomType','price', 'title', 'description', 'city', 'email', 'status', 'action'];
   ELEMENT_DATA: Advert[] = [];
   userArray: User[] = [];
   public unsubscribe$ = new SubSink();
   searchKey!: string;
   img!: string;
+
+  imageUrls: string[] = [];
 
   pieChart:any = [];
 
@@ -46,7 +50,8 @@ export class DashboardComponent implements OnInit {
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
     private crudService: CrudService, 
-    private dataService: DataService) { }
+    private dataService: DataService,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void 
   {
@@ -72,36 +77,13 @@ export class DashboardComponent implements OnInit {
             ...item.payload.doc.data()
           };
         });
-        
+
         this.dataSource = new MatTableDataSource(array.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       }
     );
   }
-
-  /*retrieveAdverts() {
-    let user: any;
-    this.crudService.retieveAdverts().subscribe(
-      adverts => {
-        let array = adverts.map(items => {
-          const data = items.payload.doc.data();
-          console.log(data.userId);
-          
-          
-          this.crudService.retrieveUserByUserId(data.userId).subscribe(
-            users => {
-              let sinleUser = users.map(userData =>{
-                user = userData;
-                
-              });
-              return users.map( data2 => Object.assign({}, {...data, data2}));
-            });
-          
-        });
-      }
-    );
-  }*/
 
   retrieveUsers() 
   {
@@ -183,6 +165,27 @@ export class DashboardComponent implements OnInit {
     const data = this.dataSource.data;
     data.splice((this.paginator.pageIndex * this.paginator.pageSize) + index, 1);
     this.crudService.udateAdvertStatus(element.id, 'declined');
+  }
+
+  displayAdImages(index: number, element: any)
+  {
+    const data = this.dataSource.data;
+    data.splice((this.paginator.pageIndex * this.paginator.pageSize) + index, 1);
+    
+    const stringObject  = JSON.stringify(element.photosUrl);
+    const stringJson = JSON.parse(stringObject);
+
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.disableClose = true;
+    dialogConfig.autoFocus = false;
+    dialogConfig.width = "70%";
+    this.dialog.open(DisplayPostImagesComponent, dialogConfig);
+    console.clear();
+          
+    this.dataService.imageUrls = [];
+    stringJson.forEach( (e: any) =>{
+      this.dataService.imageUrls.push(e.photoUrl);
+    });
   }
 }
 

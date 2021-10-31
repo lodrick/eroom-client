@@ -5,6 +5,8 @@ import { Injectable } from '@angular/core';
 })
 export class DataService {
 
+  imageUrls: string[] = [];
+
   constructor() { }
 
   bigChart(){

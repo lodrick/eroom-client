@@ -75,11 +75,20 @@ class="stats-card">
       <table mat-table [dataSource]="dataSource" matSort>
         <!-- RoomType Column -->
         <ng-container matColumnDef="index">
-          <th mat-header-cell *matHeaderCellDef>#</th>
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>#</th>
           <td mat-cell *matCellDef="let element, let i = index">
             {{ (i+1) + (paginator.pageIndex * paginator.pageSize)}}
           </td>
         </ng-container>
+
+        <!-- RoomType Column -->
+        <ng-container matColumnDef="imageUrl">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header>Image</th>
+          <td mat-cell *matCellDef="let element, let i = index" ><button mat-button matSuffix mat-icon-button aria-label="Clear" (click)="displayAdImages(i, element)">
+            <mat-icon class="icon-image">image</mat-icon>
+          </button></td>
+        </ng-container>
+
         <!-- RoomType Column -->
         <ng-container matColumnDef="roomType">
           <th mat-header-cell *matHeaderCellDef mat-sort-header>Room Type</th>

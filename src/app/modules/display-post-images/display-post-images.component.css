@@ -1,0 +1,18 @@
+.example-fill-remaining-space {
+    /* This fills the remaining space, by using flexbox. 
+       Every toolbar row uses a flexbox row layout. */
+    flex: 1 1 auto;
+  }
+
+  .imageUrls {
+      width: 200px;
+      height: 200px;
+  }
+
+  .image-layer {
+      margin-top: 2%;
+      display: block;
+      column-width: 200px;
+      overflow:scroll; 
+      height:500px;
+  }
