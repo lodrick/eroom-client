@@ -8,8 +8,7 @@ export interface User {
     contactNumber: string;
     userType: string;
     imageUrl: string;
-    lastMessageTime: string;
-    createdAt: string;
-    updatedAt: string;
-    token: string;
+    lastMessageTime: any;
+    createdAt: any;
+    updatedAt: any;
 }

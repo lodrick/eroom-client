@@ -6,6 +6,7 @@ import { AdminUsersComponent } from 'src/app/modules/admin-users/admin-users.com
 import { CreateUserComponent } from 'src/app/modules/create-user/create-user.component';
 import { EditUserComponent } from 'src/app/modules/edit-user/edit-user.component';
 import { DisplayPostImagesComponent } from 'src/app/modules/display-post-images/display-post-images.component';
+import { PostComponent } from 'src/app/modules/post/post.component';
 
 
 import { RouterModule } from '@angular/router';
@@ -46,7 +47,8 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     AdminUsersComponent,
     CreateUserComponent,
     EditUserComponent,
-    DisplayPostImagesComponent
+    DisplayPostImagesComponent,
+    PostComponent
   ],
   imports: [
     CommonModule,

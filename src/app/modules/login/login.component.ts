@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
     username: ['', Validators.required],
     password: ['', Validators.required],
   });
+  
   public loginInvalid: boolean = false;
   submitted = false;
   loading = false;

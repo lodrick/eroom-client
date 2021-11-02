@@ -1,19 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-import { SubSink } from 'subsink';
+import { MatSort } from '@angular/material/sort';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { Advert } from 'src/app/models/advert';
 import { CrudService } from 'src/app/services/crud.service';
-import { MatSort } from '@angular/material/sort';
 import { DataService } from 'src/app/services/data.service';
-import { User } from 'src/app/models/user';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { DisplayPostImagesComponent } from '../display-post-images/display-post-images.component';
 
 export enum ToggleEnum {
   APPROVED,
   PENDING,
-  DECLINED
+  DECLINED,
 }
 
 const APPROVED: string = "toggleEnum.APPROVED";
@@ -21,60 +19,39 @@ const PENDING: string = "toggleEnum.PENDING";
 const DECLINED: string = "toggleEnum.DECLINED";
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  selector: 'app-post',
+  templateUrl: './post.component.html',
+  styleUrls: ['./post.component.css']
 })
-export class DashboardComponent implements OnInit {
-  totalUsers!: string;
-  registeredUsersToday!: string;
-  dataSource!: MatTableDataSource<Advert>;
+export class PostComponent implements OnInit {
+
   displayedColumns: string[] = ['index','imageUrl','roomType','price', 'title', 'description', 'city', 'email', 'status', 'action'];
+  dataSource!: MatTableDataSource<Advert>;
   ELEMENT_DATA: Advert[] = [];
-  userArray: User[] = [];
-  public unsubscribe$ = new SubSink();
   searchKey!: string;
-  img!: string;
-
-  imageUrls: string[] = [];
-
-  pieChart:any = [];
 
   toggleEnum = ToggleEnum;
-  selectedState = this.toggleEnum.DECLINED
+  selectedState = this.toggleEnum.DECLINED;
 
   @ViewChild(MatPaginator, {static: true}) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
   constructor(
-    private crudService: CrudService, 
+    private crudService: CrudService,
     private dataService: DataService,
     private dialog: MatDialog) { }
 
-  ngOnInit(): void 
-  {
-    this.pieChart = this.dataService.pieChart();
-    this.retrieveUsers();
+  ngOnInit(): void {
     this.retrieveAdverts();
-    
-    this.retrieveUsersByDate();
   }
 
-  ngOnDestroy(): void 
-  {
-    this.unsubscribe$.unsubscribe();
-  }
-
-
-  retrieveAdverts() 
-  {
+  retrieveAdverts() {
     this.crudService.retieveAdverts().subscribe(
       list => {
-        let array = list.map(item => {
+        let array = list.map(items => {
           return {
-            ...item.payload.doc.data()
-          };
+            ...items.payload.doc.data()
+          }
         });
-
         this.dataSource = new MatTableDataSource(array.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
@@ -82,59 +59,23 @@ export class DashboardComponent implements OnInit {
     );
   }
 
-  retrieveUsers() 
-  {
-    this.crudService.retrieveUsers().subscribe(
-      list => {
-        let array = list.map(item => {
-          return {
-            ...item.payload.doc.data()
-          };
-        });
-        this.userArray = array;
-        this.totalUsers = array.length+'K';
-      }
-    );
-  }
-
-  retrieveUsersByDate() 
-  {
-    let nu;
-    this.crudService.retrieveUsersByDate(new Date()).subscribe(
-      list => {
-        let array = list.map(item => {
-          return {
-            ...item.payload.doc.data()
-          }
-        });
-        nu = array.length? array.length : 0
-        this.registeredUsersToday =  nu + 'K';
-      }
-    );
-  }
-
-  onSearchClear() 
-  {
-    this.searchKey="";
+  onSearchClear() {
+    this.searchKey = '';
     this.applyFilter();
   }
 
-  applyFilter() 
-  {
+  applyFilter() {
     this.dataSource.filter = this.searchKey.trim().toLowerCase();
   }
 
-  onToggleStatusChange($event: any, index: number, element:any) 
-  {
-    if($event.value == APPROVED) 
-    {
-      this.updateApproveStatus(index, element)
+  onToggleStatusChange($event: any, index: number, element: any) {
+    if($event.value == APPROVED) {
+      this.updateApproveStatus(index, element);
     }
-    else if($event.value == PENDING) { 
-      this.updatePendingStatus(index, element)
+    else if($event.value == PENDING) {
+      this.updatePendingStatus(index, element);
     }
-    else if($event.value == DECLINED)
-    {
+    else if($event.value == DECLINED) {
       this.updateDeclineStatus(index, element);
     }
     this.selectedState = $event.value;
@@ -164,12 +105,11 @@ export class DashboardComponent implements OnInit {
     this.crudService.udateAdvertStatus(element.id, 'declined');
   }
 
-  displayAdImages(index: number, element: any)
-  {
+  displayAdImages(index: number, element: any) {
     const data = this.dataSource.data;
-    data.splice((this.paginator.pageIndex * this.paginator.pageSize) + index, 1);
+    data.slice((this.paginator.pageIndex * this.paginator.pageIndex) + index , 1);
     
-    const stringObject  = JSON.stringify(element.photosUrl);
+    const stringObject = JSON.stringify(element.photosUrl);
     const stringJson = JSON.parse(stringObject);
 
     const dialogConfig = new MatDialogConfig();
@@ -177,12 +117,11 @@ export class DashboardComponent implements OnInit {
     dialogConfig.autoFocus = false;
     dialogConfig.width = "70%";
     this.dialog.open(DisplayPostImagesComponent, dialogConfig);
-    console.clear();
-          
+
     this.dataService.imageUrls = [];
-    stringJson.forEach( (e: any) =>{
-      this.dataService.imageUrls.push(e.photoUrl);
+    stringJson.array.forEach((element: { photoUrl: string; }) => {
+      this.dataService.imageUrls.push(element.photoUrl);
     });
   }
-}
 
+}

@@ -5,6 +5,7 @@ import { MainDashboardComponent } from './layout/main-dashboard/main-dashboard.c
 import { AdminUsersComponent } from './modules/admin-users/admin-users.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { LoginComponent } from './modules/login/login.component';
+import { PostComponent } from './modules/post/post.component';
 import { SignupComponent } from './modules/signup/signup.component';
 
 const routes: Routes = [
@@ -33,7 +34,11 @@ const routes: Routes = [
       {
         path: 'admins',
         component: AdminUsersComponent
-      }
+      },
+      {
+        path: 'posts',
+        component: PostComponent
+      },
     ]
   }
 ];

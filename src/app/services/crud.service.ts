@@ -65,6 +65,21 @@ export class CrudService {
     return this.angularFirestore.collection<User>("users", ref => ref.where("createAt", "==", date)).snapshotChanges();
   }
 
+  createUser(user: User) {
+    return new Promise<any>((resolve, reject) => {
+      this.angularFirestore.collection("users").add(user)
+      .then(response => {console.log(response)}, error => reject(error));
+    });
+  }
+
+  getUsersByContactNumber(contactNumber: string) {
+    return this.angularFirestore.collection<User>("users", ref => ref.where("contactNumber", "==", contactNumber)).snapshotChanges();
+  }
+
+  updateUser(user: User) {
+    return this.angularFirestore.collection('users').doc(user.idUser).update({'idUser': user.idUser});
+  }
+
   form: FormGroup = new FormGroup({
     $key: new FormControl(null),
     name: new FormControl('', Validators.required),

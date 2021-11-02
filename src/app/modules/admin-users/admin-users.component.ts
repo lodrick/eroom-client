@@ -56,7 +56,6 @@ export class AdminUsersComponent implements OnInit {
             ...item.payload.doc.data()
           }
         });
-        console.log(array.length);
         this.dataSource = new MatTableDataSource(array.reverse());
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
